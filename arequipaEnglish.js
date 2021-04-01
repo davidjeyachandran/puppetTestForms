@@ -31,7 +31,18 @@ const fields = [
     await page.waitForTimeout(400);
   };
 
-  const browser = await puppeteer.launch({ headless: false, defaultViewport: null });
+  const isDebugging = () => {
+    debugSettings = {
+      headless: false,
+      defaultViewport: null,
+      // slowMo: 250,
+      devtools: false,
+    };
+
+    return process.env.NODE_ENV === "debug" ? debugSettings : {};
+  };
+
+  const browser = await puppeteer.launch(isDebugging());
   const page = await browser.newPage();
 
   const navigationPromise = page.waitForNavigation();
@@ -54,27 +65,27 @@ const fields = [
   console.log("Current page: " + title + " - ", page.url());
 
   for (const key in fields) {
-    console.log(fields[key]);
+    const { label, type, selector, value } = field[key][selector];
+    console.log("Processing field: " + label);
+    await page.waitForSelector(selector);
+    if (type === "text") await page.type(selector, value);
+    await page.waitForTimeout(500);
   }
 
-  // First name
-  await page.waitForSelector("#edit-field-name-0-value");
-  await page.type("#edit-field-name-0-value", "David");
+  // // First name
+  // await page.waitForSelector("#edit-field-name-0-value");
+  // await page.type("#edit-field-name-0-value", "David");
 
-  // Last name
-  const selectorLastName = "#edit-field-last-names-0-value";
-  await page.evaluate(
-    (selectorLastName) => document.querySelector(selectorLastName).click(),
-    selectorLastName
-  );
-  await page.waitForSelector(selectorLastName);
-  await page.type(selectorLastName, "Test");
-  await page.waitForTimeout(500);
+  // // Last name
+  // const selectorLastName = "#edit-field-last-names-0-value";
+  // await page.waitForSelector(selectorLastName);
+  // await page.type(selectorLastName, "Test");
+  // await page.waitForTimeout(500);
 
-  const selectorPhone = "#edit-field-phone-0-value";
-  await page.waitForSelector(selectorPhone);
-  await page.type(selectorPhone, "997 555 555");
-  await page.waitForTimeout(500);
+  // const selectorPhone = "#edit-field-phone-0-value";
+  // await page.waitForSelector(selectorPhone);
+  // await page.type(selectorPhone, "997 555 555");
+  // await page.waitForTimeout(500);
 
   await page.waitForSelector("#edit-field-institute-0-value");
   await page.type("#edit-field-institute-0-value", "Centro de Idiomas");
@@ -89,8 +100,8 @@ const fields = [
   await page.waitForTimeout(500);
 
   // User Picture
-  // await page.click("#ajax-wrapper #edit-user-picture-0-upload");
-  // await page.type("#edit-field-birth-year-0-value", "1948");
+  await page.type("#edit-field-birth-year-0-value", "1948");
+  await page.click("#edit-user-picture-0-upload");
 
   //   let dateString = await page.evaluate(
   //     d => new Date(d).toLocaleDateString(navigator.language, {
@@ -102,5 +113,5 @@ const fields = [
   // );
   // await page.type("input", dateString)")
 
-  await browser.close();
+  // await browser.close();
 })();

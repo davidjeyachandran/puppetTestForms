@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node arequipaEnglish.js",
-    "test": "node arequipaEnglish.js",
+    "start": "node ./src/arequipaEnglish.js",
+    "test": "node ./src/arequipaEnglish.js",
     "debug": "NODE_ENV=debug npm test"
   },
   "keywords": [],

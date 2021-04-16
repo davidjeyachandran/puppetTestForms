@@ -9,7 +9,7 @@ const fields = [
     evaluate: "(selector) => document.querySelector(selector).click()",
     type: "text",
     selector: "#edit-field-last-names-0-value",
-    valueCustom: "Pratt" + randomNumber(1000),
+    value: "Pratt" + randomNumber(1000),
   },
   {
     label: "Picture",
@@ -41,30 +41,35 @@ const fields = [
     label: "Email",
     type: "text",
     selector: '[data-drupal-selector="edit-mail"]',
-    valueCustom: "davidjeyachandran+" + randomNumber(1000) + "@gmail.com",
+    value: "davidjeyachandran+" + randomNumber(1000) + "@gmail.com",
   },
   {
     label: "Create new account",
-    type: "submit",
-    selector: "z#edit-submit",
+    type: "Zsubmit",
+    selector: "#edit-submit",
     value: null,
   },
 ];
 
 (async () => {
-  const browser = await puppeteer.launch(isDebugging());
-  const page = await browser.newPage();
+  try {
+    const browser = await puppeteer.launch(isDebugging());
+    const page = await browser.newPage();
+    await page.setViewport({ width: 800, height: 1000 });
 
-  const navigationPromise = page.waitForNavigation();
-  await page.goto("https://arequipaenglish.com/register");
-  await navigationPromise;
+    const navigationPromise = page.waitForNavigation();
+    await page.goto("https://arequipaenglish.com/register");
+    await navigationPromise;
 
-  const title = await page.title();
-  console.log("Current page: " + title + " - ", page.url());
+    const title = await page.title();
+    console.log("Current page: " + title + " - ", page.url());
 
-  for (const key in fields) {
-    await testField(fields[key]);
+    for (const key in fields) {
+      await testField(fields[key], page);
+    }
+
+    await browser.close();
+  } catch (err) {
+    console.log(err);
   }
-
-  await browser.close();
 })();

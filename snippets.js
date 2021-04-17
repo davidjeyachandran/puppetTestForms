@@ -15,3 +15,5 @@ const title = await page.title();
 console.log("Current page: " + title + " - ", page.url());
 
 // await page.setViewport({ width: 1092, height: 764 });
+// https://chercher.tech/puppeteer/select-dropdown-puppeteer
+// https://medium.com/touch4it/end-to-end-testing-with-puppeteer-and-jest-ec8198145321

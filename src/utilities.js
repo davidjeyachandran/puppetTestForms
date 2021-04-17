@@ -1,4 +1,4 @@
-const isDebugging = () => {
+exports.isDebugging = () => {
   debugSettings = {
     headless: false,
     defaultViewport: null,
@@ -8,12 +8,10 @@ const isDebugging = () => {
 
   return process.env.NODE_ENV === "debug" ? debugSettings : {};
 };
-exports.isDebugging = isDebugging;
 
-const randomNumber = (max) => Math.floor(Math.random() * max);
-exports.randomNumber = randomNumber;
+exports.randomNumber = (max) => Math.floor(Math.random() * max);
 
-const testField = async (field, page) => {
+const updateField = async (field, page) => {
   try {
     const { label, selector, type, value } = field;
     await page.waitForSelector(selector);
@@ -37,4 +35,4 @@ const testField = async (field, page) => {
     console.log(err);
   }
 };
-exports.testField = testField;
+exports.testField = updateField;

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/arequipaEnglish.js",
-    "test": "node ./src/arequipaEnglish.js",
-    "debug": "NODE_ENV=debug npm test"
+    "test": "jest",
+    "debug": "NODE_ENV=debug npm start"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
   "dependencies": {
     "jest": "^26.6.3",
     "jest-cli": "^26.6.3",
+    "jest-puppeteer": "^5.0.0",
     "puppeteer": "^7.1.0"
   }
 }

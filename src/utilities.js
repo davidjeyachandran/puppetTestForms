@@ -30,7 +30,7 @@ const updateField = async (field, page) => {
       await page.waitForNavigation();
     }
     await page.waitForTimeout(400);
-    console.log("Testing field: " + label);
+    // console.log("Testing field: " + label);
   } catch (err) {
     console.log(err);
   }

@@ -52,19 +52,28 @@ const fields = [
 
 exports.registerUser = async (page) => {
   try {
-    const navigationPromise = page.waitForNavigation();
-    await page.goto("https://arequipaenglish.com/register");
-    await navigationPromise;
-
-    const title = await page.title();
-    console.log("Current page: " + title + " - ", page.url());
-
     for (const key in fields) {
       await testField(fields[key], page);
     }
-
-    await browser.close();
   } catch (err) {
     console.log(err);
   }
+
+  return await page;
+};
+
+exports.firstLastName = async (page) => {
+  const relevantFieldList = ["First name", "Last name", "Birth Year"];
+  const relevantFields = fields.filter((item) => relevantFieldList.includes(item.label));
+  console.log(relevantFields);
+
+  try {
+    for (const key in relevantFields) {
+      await testField(fields[key], page);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  return await page;
 };

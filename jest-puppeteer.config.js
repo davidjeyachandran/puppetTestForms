@@ -1,7 +1,7 @@
 module.exports = {
   launch: {
-    // headless: process.env.HEADLESS !== "false",
-    headless: false,
+    // headless: process.env.NODE_ENV === "debug",
+    headless: true,
     product: "chrome",
   },
   browserContext: "default",

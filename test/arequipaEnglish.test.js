@@ -17,13 +17,13 @@ describe("Arequipa English Registration page", () => {
   it(
     "should calculate correctly the Fullname",
     async () => {
-      await expect(page).toFill("#edit-field-name-0-value", "James");
-      await expect(page).toFill("#edit-field-last-names-0-value", "Bond");
+      await expect(page).toFill("#edit-field-name-0-value", "Kate");
+      await expect(page).toFill("#edit-field-last-names-0-value", "Martin");
       await expect(page).toFill("#edit-field-birth-year-0-value", "1950");
 
       const element = await page.$("#edit-name");
       const text = await (await element.getProperty("value")).jsonValue();
-      await expect(text).toBe("James Bond");
+      await expect(text).toBe("Kate Martin");
     },
     timeout
   );

@@ -22,7 +22,7 @@ const updateField = async (field, page) => {
     if (type === "file") {
       // Sets the value of the file input to fileToUpload
       const inputUploadHandle = await page.$(selector);
-      inputUploadHandle.uploadFile(value);
+      await inputUploadHandle.uploadFile(value);
     }
 
     if (type === "submit") {
